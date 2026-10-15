@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Interactive Image Gallery</title>
+<style>
+:root{--bg:#f6f7fb;--fg:#1d2433;--card:#fff;--accent:#3b4cca;--ring:#b45309;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12151f;--fg:#eef1f8;--card:#1c2132;--accent:#9fb0ff;--ring:#fbbf24}}
+:root[data-theme="dark"]{--bg:#12151f;--fg:#eef1f8;--card:#1c2132;--accent:#9fb0ff;--ring:#fbbf24}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.5}
+main{max-width:760px;margin:0 auto;padding:1.5rem 1rem 2.5rem}
+h1{margin:0 0 .25rem}
+#image{display:flex;align-items:flex-end;justify-content:center;min-height:300px;margin:1rem 0 1.5rem;border-radius:12px;background:var(--card) center/cover no-repeat;border:2px solid var(--accent);overflow:hidden}
+#image p{margin:0;width:100%;padding:.75rem 1rem;background:rgba(0,0,0,.75);color:#fff;text-align:center;font-weight:600}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.75rem}
+.thumb{width:100%;height:auto;border-radius:8px;border:3px solid transparent;cursor:pointer;background:var(--card)}
+.thumb:hover,.thumb:focus{border-color:var(--ring);outline:3px solid var(--ring);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+  <h1>Interactive Image Gallery</h1>
+  <p>Hover over a picture, or press Tab to focus it, to see it enlarged below.</p>
+  <div id="image" aria-live="polite"><p id="caption">Hover over or tab to an image below to display it here.</p></div>
+  <div class="gallery" role="group" aria-label="Gallery thumbnails">
+    <img class="thumb" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nI2ZmY2Y4YScvPjxjaXJjbGUgY3g9JzMwMCcgY3k9JzkwJyByPSc0MCcgZmlsbD0nI2ZmZjNjNCcvPjxwYXRoIGQ9J00wIDMwMFYxOTBMMTIwIDkwIDIyMCAyMDAgMzAwIDE0MCA0MDAgMjYwVjMwMFonIGZpbGw9JyM1YjRhN2EnLz48L3N2Zz4=" alt="Purple mountains with a pale sun behind them" width="200" height="150" onmouseover="upDate(this)" onmouseleave="unDo()" onfocus="upDate(this)" onblur="unDo()">
+    <img class="thumb" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nI2NmZWZmZicvPjxyZWN0IHk9JzE5MCcgd2lkdGg9JzQwMCcgaGVpZ2h0PScxMTAnIGZpbGw9JyMxZTg4YzknLz48cGF0aCBkPSdNMTcwIDE5MEgyNTBMMjEwIDExMFonIGZpbGw9JyNmZmYnLz48L3N2Zz4=" alt="White sailboat on a blue sea" width="200" height="150" onmouseover="upDate(this)" onmouseleave="unDo()" onfocus="upDate(this)" onblur="unDo()">
+    <img class="thumb" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nI2U5ZjdlNCcvPjxyZWN0IHg9JzkwJyB5PScxNDAnIHdpZHRoPScyMCcgaGVpZ2h0PScxMDAnIGZpbGw9JyM2YjRhMmInLz48Y2lyY2xlIGN4PScxMDAnIGN5PScxMTAnIHI9JzYwJyBmaWxsPScjMmU3ZDMyJy8+PHJlY3QgeT0nMjQwJyB3aWR0aD0nNDAwJyBoZWlnaHQ9JzYwJyBmaWxsPScjNGNhZjUwJy8+PC9zdmc+" alt="Green tree on a grassy meadow" width="200" height="150" onmouseover="upDate(this)" onmouseleave="unDo()" onfocus="upDate(this)" onblur="unDo()">
+    <img class="thumb" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzFiMmE0OScvPjxyZWN0IHg9JzQwJyB5PScxNDAnIHdpZHRoPSc4MCcgaGVpZ2h0PScxNjAnIGZpbGw9JyMwZjE4MzAnLz48cmVjdCB4PScxNTAnIHk9JzkwJyB3aWR0aD0nOTAnIGhlaWdodD0nMjEwJyBmaWxsPScjMTQyMDNkJy8+PHJlY3QgeD0nMjcwJyB5PScxNjAnIHdpZHRoPSc4MCcgaGVpZ2h0PScxNDAnIGZpbGw9JyMwZjE4MzAnLz48Y2lyY2xlIGN4PSczNDAnIGN5PSc1MCcgcj0nMTgnIGZpbGw9JyNmNWYzY2UnLz48L3N2Zz4=" alt="City skyline at night under a full moon" width="200" height="150" onmouseover="upDate(this)" onmouseleave="unDo()" onfocus="upDate(this)" onblur="unDo()">
+    <img class="thumb" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nI2ZmZWNjYycvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzgwJyByPSczNicgZmlsbD0nI2ZmZjFiOCcvPjxwYXRoIGQ9J00wIDMwMFYyMjBRMTAwIDE2MCAyMDAgMjIwVDQwMCAyMDBWMzAwWicgZmlsbD0nI2UwYTQ1OCcvPjwvc3ZnPg==" alt="Sand dunes in a desert under a bright sun" width="200" height="150" onmouseover="upDate(this)" onmouseleave="unDo()" onfocus="upDate(this)" onblur="unDo()">
+    <img class="thumb" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzFhMTI0MCcvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE1MCcgcj0nNjAnIGZpbGw9JyM3ZTU3YzInLz48Y2lyY2xlIGN4PSc2MCcgY3k9JzUwJyByPSczJyBmaWxsPScjZmZmJy8+PGNpcmNsZSBjeD0nMzQwJyBjeT0nNzAnIHI9JzMnIGZpbGw9JyNmZmYnLz48Y2lyY2xlIGN4PSczMjAnIGN5PScyNDAnIHI9JzMnIGZpbGw9JyNmZmYnLz48L3N2Zz4=" alt="Purple planet floating among stars in space" width="200" height="150" onmouseover="upDate(this)" onmouseleave="unDo()" onfocus="upDate(this)" onblur="unDo()">
+  </div>
+</main>
+<script>
+var DEFAULT_TEXT = "Hover over or tab to an image below to display it here.";
+function upDate(previewPic) {
+  console.log("upDate fired. Alt text: " + previewPic.alt);
+  var box = document.getElementById("image");
+  box.style.backgroundImage = "url('" + previewPic.src + "')";
+  document.getElementById("caption").textContent = previewPic.alt;
+}
+function unDo() {
+  console.log("unDo fired.");
+  var box = document.getElementById("image");
+  box.style.backgroundImage = "";
+  document.getElementById("caption").textContent = DEFAULT_TEXT;
+}
+function addTabFocus() {
+  console.log("onload fired: addTabFocus is running.");
+  var images = document.getElementsByClassName("thumb");
+  for (var i = 0; i < images.length; i++) {
+    images[i].setAttribute("tabindex", "0");
+  }
+}
+window.onload = addTabFocus;
+</script>
+</body>
+</html>
